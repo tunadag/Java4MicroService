@@ -1,0 +1,8 @@
+rootProject.name = 'Java4MicroService'
+include 'auth-microservice'
+include 'userprofile-microservice'
+include 'product-microservice'
+include 'sales-microservice'
+include 'config-server'
+include 'api-gateway-microservice'
+
