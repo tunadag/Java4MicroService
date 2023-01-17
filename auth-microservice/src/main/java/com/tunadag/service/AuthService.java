@@ -10,6 +10,7 @@ import com.tunadag.manager.IUserProfileManager;
 import com.tunadag.mapper.IAuthMapper;
 import com.tunadag.repository.IAuthRepository;
 import com.tunadag.repository.entity.Auth;
+import com.tunadag.utility.JwtTokenManager;
 import com.tunadag.utility.ServiceManager;
 import com.tunadag.utility.TokenGenerator;
 import org.springframework.stereotype.Service;
@@ -27,14 +28,14 @@ public class AuthService extends ServiceManager<Auth, Long> {
      * @Autowired ile işaretlemek ya da Constructor Injection ile kullanmak.
      */
     private final IUserProfileManager userProfileManager;
-    private final TokenGenerator tokenGenerator;
+    private final JwtTokenManager jwtTokenManager;
 
     public AuthService(IAuthRepository repository, IUserProfileManager userProfileManager,
-                       TokenGenerator tokenGenerator){
+                       JwtTokenManager jwtTokenManager){
         super(repository);
         this.repository = repository;
         this.userProfileManager = userProfileManager;
-        this.tokenGenerator = tokenGenerator;
+        this.jwtTokenManager = jwtTokenManager;
     }
 
     /**
@@ -82,7 +83,10 @@ public class AuthService extends ServiceManager<Auth, Long> {
         /**
          * Login olan kişiler için özel bir token üretmek mantıklıdır.
          */
-        return tokenGenerator.createToken(auth.get().getId());
+        Optional<String> token = jwtTokenManager.createToken(auth.get().getId());
+        if (token.isEmpty())
+            throw new AuthMicroserviceException(ErrorType.JWT_TOKEN_CREATE_ERROR);
+        return token.get();
     }
 
 }

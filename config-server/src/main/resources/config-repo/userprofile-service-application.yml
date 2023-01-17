@@ -2,12 +2,24 @@ server:
   port: 9093
 
 spring:
-  datasource:
-    driver-class-time: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/DBuserprofilemicroservice
-    username: postgres
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: java4
     password: root
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  zipkin:
+    enabled: true
+    base-url: http://10.76.2.233:9411
+    service:
+      name: userprofile-service
+  data:
+    mongodb:
+      host: 34.132.20.108
+      port: 27777
+      database: Java4DB
+      username: JavaUser
+      password: Aa123456
+
+myapplication:
+  feignclient:
+    elasticsearch: http://localhost:9100/userprofile

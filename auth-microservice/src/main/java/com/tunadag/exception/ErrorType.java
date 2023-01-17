@@ -14,6 +14,7 @@ public enum ErrorType {
     BAD_REQUEST_ERROR(4100, "Parametre hatası", HttpStatus.BAD_REQUEST),
     LOGIN_ERROR(4110, "Kullanıcı adı veya şifre hatalı", HttpStatus.BAD_REQUEST),
     REGISTER_REPASSWORD_ERROR(4111, "Girilen şifreler uyuşmamaktadır", HttpStatus.BAD_REQUEST),
+    JWT_TOKEN_CREATE_ERROR(4114, "Token oluşturma hatası", HttpStatus.BAD_REQUEST),
     REGISTER_KULLANICIADI_KAYITLI(4112, "Kullanıcı adı zaten kayıtlı", HttpStatus.BAD_REQUEST);
 
     int code;

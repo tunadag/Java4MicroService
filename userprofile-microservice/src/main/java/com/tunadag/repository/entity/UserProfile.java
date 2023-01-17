@@ -6,19 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Table(name = "tbl_userprofile")
-@Entity
+@Document
 public class UserProfile extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    String id;
     /**
      * Auth Microservice te kayıt olan bir kullanıcının id bilgisini tutar.
      */

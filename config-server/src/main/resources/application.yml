@@ -2,6 +2,11 @@ server:
   port: 8888
 
 spring:
+  zipkin:
+    enabled: true
+    base-url: http://10.76.2.233:9411
+    service:
+      name: config-server
   profiles:
     active: native
   cloud:

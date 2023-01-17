@@ -2,11 +2,21 @@ server:
   port: 9090
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: java4
+    password: root
+  zipkin:
+    enabled: true
+    base-url: http://10.76.2.233:9411
+    service:
+      name: auth-service
   datasource:
     driver-class-time: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/DBauthmicroservice
+    url: jdbc:postgresql://35.193.102.81:11222/DBauthmicroservice
     username: postgres
-    password: root
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,12 +24,12 @@ spring:
 
 myapplication:
   auth:
-    ip: localhost
+    ip: 192.168.0.167
     port: 9090
   user:
-    ip: localhost
+    ip: 192.168.0.167
     port: 9093
-    feignurl: http://localhost:9093/v1/dev/userprofile
+    feignurl: http://192.168.0.167:9093/v1/dev/userprofile
 
 buuygulama:
   birdeger: "YML dan gelen bir parametre"

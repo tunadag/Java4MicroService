@@ -7,10 +7,7 @@ import com.tunadag.service.UserProfileService;
 import com.tunadag.utility.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,8 +26,8 @@ public class UserProfileController {
 
     @PostMapping(GETALL)
     public ResponseEntity<List<UserProfile>> userProfileList(@RequestBody @Valid BaseRequestDto dto){
-        Long userid = tokenGenerator.decodeToken(dto.getToken());
-        return ResponseEntity.ok(userProfileService.findAll());
+
+        return ResponseEntity.ok(userProfileService.findAll(dto));
     }
 
     /**
@@ -50,5 +47,16 @@ public class UserProfileController {
                         .build()
         );
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/getupper")
+    public ResponseEntity<String> getUpperCase(String name){
+        return ResponseEntity.ok(userProfileService.getUpperCase(name));
+    }
+
+    @GetMapping("/clear")
+    public ResponseEntity<Void> clearAll(){
+        userProfileService.clearCache();
+        return ResponseEntity.ok().build();
     }
 }

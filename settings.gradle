@@ -5,4 +5,7 @@ include 'product-microservice'
 include 'sales-microservice'
 include 'config-server'
 include 'api-gateway-microservice'
+include 'elastic-service'
+include 'elastic-service'
+include 'deneme'
 
