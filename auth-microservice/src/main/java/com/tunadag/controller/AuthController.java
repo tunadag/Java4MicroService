@@ -2,11 +2,13 @@ package com.tunadag.controller;
 
 import com.tunadag.dto.request.DoLoginRequestDto;
 import com.tunadag.dto.request.RegisterRequestDto;
+import com.tunadag.dto.response.DoLoginResponseDto;
 import com.tunadag.dto.response.RegisterResponseDto;
 import com.tunadag.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,8 +37,12 @@ public class AuthController {
      */
 
     @PostMapping(DOLOGIN)
-    public ResponseEntity<String> doLogin(@RequestBody @Valid DoLoginRequestDto dto){
-        return ResponseEntity.ok(authService.doLogin(dto));
+    @CrossOrigin("*")
+    public ResponseEntity<DoLoginResponseDto> doLogin(@RequestBody @Valid DoLoginRequestDto dto){
+        return ResponseEntity.ok(
+                DoLoginResponseDto.builder()
+                        .token(authService.doLogin(dto))
+                        .build());
     }
 
     @CrossOrigin("*")
@@ -47,7 +53,14 @@ public class AuthController {
     }
 
     @GetMapping("/say")
+    @PreAuthorize("hasAuthority('DICKHEAD') or hasAuthority('ADMIN')")
     public ResponseEntity<String> sayHello(){
+        return ResponseEntity.ok("Selam arkadaşlar, ben Auth");
+    }
+
+    @GetMapping("/sayadmin")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<String> sayHelloAdmin(){
         return ResponseEntity.ok("Selam arkadaşlar, ben Auth");
     }
 }
