@@ -20,8 +20,8 @@ public class UserProfileService extends ServiceManager<UserProfile, String> {
     public UserProfile findByUsername(String username){
         Optional<UserProfile> result = repository.findOptionalByUsername(username);
         if(result.isEmpty())
-            return UserProfile.builder().build();        return result.get();
-
+            return UserProfile.builder().build();
+        return result.get();
     }
 
 }
